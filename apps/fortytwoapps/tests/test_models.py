@@ -24,7 +24,7 @@ class ContactModelTestCase(TestCase):
         contact = Contact.objects.first()
         self.assertEqual(contact.name,'Bhavneet')
         self.assertEqual(contact.lastname,'Singh')
-        self.assertEqual(contact.dateofdbirth,'1983-05-01')
+        self.assertEqual(contact.dateofbirth,'1983-05-01')
         self.assertEqual(contact.bio,'Hello This is my bio')
         self.assertEqual(contact.email,'bhavneetsi@gmail.com')
         self.assertEqual(contact.jabber,'bhavneetsi@42cc.co')

@@ -12,7 +12,7 @@ class IndexViewTestCase(TestCase):
         #self.factory = RequestFactory()
         contact = Contact.objects.create(name = 'Bhavneet1',
                                          lastname = 'singh',
-                                         dateofdbirth='1983-05-01',
+                                         dateofbirth='1983-05-01',
                                          bio='developer',
                                          email='bhavneetsi@gmail.com',
                                          jabber='bhavneetsi@42cc.co',
@@ -57,7 +57,7 @@ class IndexViewTestCase(TestCase):
         """Test contact view, should return first entry from the DB"""
         self.url = reverse('index')
         self.response = self.client.get(self.url)
-        Contact.objects.create(name='Bhavneet1',lastname='singh',dateofdbirth='1983-05-01')
+        Contact.objects.create(name='Bhavneet1',lastname='singh',dateofbirth='1983-05-01')
         contacts=Contact.objects.all()
         self.assertTrue(Contact.objects.count(), 2)
         self.assertEqual(contacts[0], self.response.context_data['contact'])

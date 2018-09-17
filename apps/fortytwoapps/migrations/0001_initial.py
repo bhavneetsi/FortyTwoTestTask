@@ -13,7 +13,7 @@ class Migration(SchemaMigration):
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
             ('lastname', self.gf('django.db.models.fields.CharField')(max_length=100, null=True, blank=True)),
-            ('dateofdbirth', self.gf('django.db.models.fields.DateField')()),
+            ('dateofbirth', self.gf('django.db.models.fields.DateField')()),
             ('bio', self.gf('django.db.models.fields.CharField')(max_length=500, null=True, blank=True)),
             ('email', self.gf('django.db.models.fields.CharField')(max_length=100, null=True, blank=True)),
             ('jabber', self.gf('django.db.models.fields.CharField')(max_length=100, null=True, blank=True)),
@@ -32,7 +32,7 @@ class Migration(SchemaMigration):
         u'fortytwoapps.contact': {
             'Meta': {'object_name': 'Contact'},
             'bio': ('django.db.models.fields.CharField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'}),
-            'dateofdbirth': ('django.db.models.fields.DateField', [], {}),
+            'dateofbirth': ('django.db.models.fields.DateField', [], {}),
             'email': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'jabber': ('django.db.models.fields.CharField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
