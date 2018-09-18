@@ -1,12 +1,12 @@
 from django.test import TestCase
-from fortytwoapps.models import Contact
+from fortytwoapps.models import Contact, Request
 from django.core.urlresolvers import reverse
+from json import loads
 
 
 class IndexViewTestCase(TestCase):
 
     def setUp(self):
-
         Contact.objects.create(name='Bhavneet1',
                                lastname='singh',
                                dateofbirth='1983-05-01',

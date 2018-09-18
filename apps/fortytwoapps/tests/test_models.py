@@ -1,5 +1,6 @@
 from django.test import TestCase
-from fortytwoapps.models import Contact
+from fortytwoapps.models import Contact, Request
+from datetime import datetime
 
 
 class ContactModelTestCase(TestCase):
@@ -40,7 +41,8 @@ class RequestsModelTestCase(TestCase):
             Request.objects.create(
                                    url='/',
                                    method='get',
-                                   time=fuzzy.FuzzyDate(date.today()),
+                                   time=datetime.now().strftime(
+                                                       '%Y-%m-%d %H:%M:%S'),
                                    viewed=False)
 
     def test_request_basic(self):
