@@ -31,3 +31,23 @@ class ContactModelTestCase(TestCase):
         self.assertEqual(contact.jabber, 'bhavneetsi@42cc.co')
         self.assertEqual(contact.skype, 'bhavneet.si')
         self.assertEqual(contact.othercontacts, 'Other Contacts')
+
+
+class RequestsModelTestCase(TestCase):
+    """Test for RequestModel
+    """
+    def setUp(self):
+            Request.objects.create(
+                                   url='/',
+                                   method='get',
+                                   time=fuzzy.FuzzyDate(date.today()),
+                                   viewed=False)
+
+    def test_request_basic(self):
+        """
+        Test for Request model
+        """
+        self.request = Request.objects.first()
+        self.assertEqual(self.request.url, '/')
+        self.assertEqual(self.request.method, 'get')
+        self.assertEqual(self.request.viewed, False)

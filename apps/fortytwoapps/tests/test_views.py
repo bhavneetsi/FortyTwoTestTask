@@ -60,3 +60,50 @@ class IndexViewTestCase(TestCase):
         contacts = Contact.objects.all()
         self.assertTrue(Contact.objects.count(), 2)
         self.assertEqual(contacts[0], self.response.context_data['contact'])
+
+
+class TestRequestView(TestCase):
+
+    def setUp(self):
+        Request.objects.all().delete()
+
+    def test_max_10_requests_returned(self):
+        """Test to check if there are more than 10 request in db only 10 are returned
+        """
+        for _ in range(11):
+            self.client.get('/')
+        self.response = self.client.get(reverse('requests'))
+        self.assertEqual(len(self.response.context_data['object_list']), 10)
+
+    def test_requests_returned_by_ajax(self):
+        """Test the AJAX requests made by browser
+        """
+        for _ in range(11):
+            self.client.get('/')
+        self.response = self.client.get('/requests/?focus=true',
+                                        HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+                                        )
+        request_list = loads(self.response.content)['request_list']
+        self.assertEqual(len(request_list), 10)
+        self.assertTrue(all(r.viewed for r in Request.objects.all()))
+
+    def test_not_viewed_requests_by_ajax(self):
+        """
+        Test for checking correct notviewed values returned for ajax requests
+        """
+        for _ in range(20):
+            self.client.get('/')
+        self.response = self.client.get('/requests/?focus=false',
+                                        HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertFalse(all(r.viewed for r in Request.objects.all()))
+        new_requests = loads(self.response.content)['new_requests']
+        self.assertEqual(new_requests, 20)
+
+    def test_request_view_render(self):
+        """
+        basic test for request view to return status 200 as response
+        and uses correct template
+        """
+        self.response = self.client.get('/requests/')
+        self.assertEqual(self.response.status_code, 200)
+        self.assertTemplateUsed(self.response, 'fortytwoapps/requests.html')
