@@ -53,6 +53,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'fortytwoapps.middleware.Requestlog',
+
 )
 
 ROOT_URLCONF = 'fortytwo_test_task.urls'
@@ -114,6 +116,7 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(BASE_DIR, 'assets'),
+    os.path.join(BASE_DIR, 'apps', 'fortytwoapps', 'static'),
 )
 
 
