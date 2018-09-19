@@ -2,6 +2,7 @@ var interval=1000;
 var pagetitle="Requests";
 var newRequests=0;
 
+
 window.addEventListener("focus", updatetitle);
 
 
