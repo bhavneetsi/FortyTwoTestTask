@@ -12,6 +12,8 @@ urlpatterns = patterns(
     url(r'^$', Index.as_view(), name='index'),
     url(r'^requests/', Requests.as_view(), name='requests'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^accounts/', include('django.contrib.auth.urls',
+                               namespace='accounts')),
     url(r'^updatecontact/(?P<pk>\d+)/$',UpdateContact.as_view(),name='update_contact'),
 )
 
