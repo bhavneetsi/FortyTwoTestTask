@@ -15,7 +15,8 @@ urlpatterns = patterns(
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('django.contrib.auth.urls',
                                namespace='accounts')),
-    url(r'^updatecontact/(?P<pk>\d+)/$',UpdateContact.as_view(),name='update_contact'),
+    url(r'^updatecontact/(?P<pk>\d+)/$', UpdateContact.as_view(),
+        name='update_contact'),
 )
 
 urlpatterns += staticfiles_urlpatterns()

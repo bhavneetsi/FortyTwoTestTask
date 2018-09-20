@@ -2,9 +2,6 @@ from django.test import TestCase
 from fortytwoapps.models import Contact, Request
 from django.core.urlresolvers import reverse
 from json import loads
-from PIL import Image
-from django.core.files import File
-from django.conf import settings
 
 
 class IndexViewTestCase(TestCase):
@@ -115,7 +112,7 @@ class TestRequestView(TestCase):
 class TestUpdateContactView(TestCase):
 
     def setUp(self):
-        self.url = reverse('update_contact',kwargs={'pk': 1})
+        self.url = reverse('update_contact', kwargs={'pk': 1})
         self.client.login(username='admin', password='admin')
         self.response = self.client.get(self.url)
 
@@ -124,17 +121,18 @@ class TestUpdateContactView(TestCase):
         Test to check if view is retrning
         correct template
         """
-        self.assertEqual(self.response.status_code,200)
-        self.assertTemplateUsed(self.response,'fortytwoapps/update_contact.html')
-    
+        self.assertEqual(self.response.status_code, 200)
+        self.assertTemplateUsed(self.response,
+                                'fortytwoapps/update_contact.html')
+
     def test_update_contact_view_unauthorised(self):
         """
-        Test if unauthorised request is redirected to login page 
+        Test if unauthorised request is redirected to login page
         """
         self.client.logout()
         self.response = self.client.get(self.url)
-        self.assertEqual(self.response.status_code,302)
-        self.assertIn('/accounts/login/',self.response.url)
+        self.assertEqual(self.response.status_code, 302)
+        self.assertIn('/accounts/login/', self.response.url)
 
     def test_for_all_fields_presented_back(self):
         """
@@ -146,26 +144,28 @@ class TestUpdateContactView(TestCase):
 
         for field in fields:
             self.assertContains(self.response, field)
-   
+
     def test_ajax_update_request(self):
         """
         Test Ajax request is uppdating contact details
         """
-        updatedata={'name':'test',
-              'lastname':'user',
-              'dateofbirth':'1983-05-01',
-              'email':'testuser@test.com',
-              'skype':'test.user',
-              'jabber':'test@42cc.co',
-              'othercontacts':'none',
-              'bio':'no bio'}
-        response=self.client.post(self.url,updatedata,HTTP_X_REQUESTED_WITH = "XMLHttpRequest")
-        contact=Contact.objects.first()
-        self.assertEqual(response.status_code,200)
+        updatedata = {'name': 'test',
+                      'lastname': 'user',
+                      'dateofbirth': '1983-05-01',
+                      'email': 'testuser@test.com',
+                      'skype': 'test.user',
+                      'jabber': 'test@42cc.co',
+                      'othercontacts': 'none',
+                      'bio': 'no bio'}
+        response = self.client.post(self.url, updatedata,
+                                    HTTP_X_REQUESTED_WITH="XMLHttpRequest")
+        contact = Contact.objects.first()
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(contact.name, updatedata['name'])
         self.assertEqual(contact.lastname, updatedata['lastname'])
-        self.assertEqual(contact.dateofbirth.strftime('%Y-%m-%d'), updatedata['dateofbirth'])
+        self.assertEqual(contact.dateofbirth.strftime('%Y-%m-%d'),
+                         updatedata['dateofbirth'])
         self.assertEqual(contact.email, updatedata['email'])
         self.assertEqual(contact.jabber, updatedata['jabber'])
-        self.assertEqual(contact.othercontacts,updatedata['othercontacts'])
-        self.assertEqual(contact.bio,updatedata['bio'])
+        self.assertEqual(contact.othercontacts, updatedata['othercontacts'])
+        self.assertEqual(contact.bio, updatedata['bio'])

@@ -12,7 +12,7 @@ class ContactModelTestCase(TestCase):
 
     def setUp(self):
         Contact.objects.all().delete()
-        imgfile = open("".join([settings.BASE_DIR,"/photos/test_img.png"]))
+        imgfile = open("".join([settings.BASE_DIR, "/photos/test_img.png"]))
         self.contact = Contact.objects.create(
             name='test',
             lastname='user',
@@ -26,7 +26,7 @@ class ContactModelTestCase(TestCase):
             )
 
     def tearDown(self):
-        files = "".join([settings.BASE_DIR,"/uploads/photos/test_img*"])
+        files = "".join([settings.BASE_DIR, "/uploads/photos/test_img*"])
         for file in glob.glob(files):
             os.remove(file)
 
@@ -44,15 +44,16 @@ class ContactModelTestCase(TestCase):
         self.assertEqual(contact.jabber, 'bhavneetsi@42cc.co')
         self.assertEqual(contact.skype, 'bhavneet.si')
         self.assertEqual(contact.othercontacts, 'Other Contacts')
-        self.assertEqual(self.contact.photo.url,'/uploads/photos/test_img.png')
+        self.assertEqual(self.contact.photo.url,
+                         '/uploads/photos/test_img.png')
 
     def test_image_size(self):
         """
         Test if size of stored image is as per size requirements of 200*200
         """
-        required_photo_size = (200,200)
+        required_photo_size = (200, 200)
         uploaded_photo_size = Image.open(self.contact.photo.path).size
-        self.assertLessEqual(uploaded_photo_size,required_photo_size)
+        self.assertLessEqual(uploaded_photo_size, required_photo_size)
 
 
 class RequestsModelTestCase(TestCase):
