@@ -117,9 +117,9 @@ Update Contact
     {% if form.photo.value %}
     	<input id="id_photo-clear" name="photo-clear" type="checkbox" />
         <label for="id_photo-clear">Clear</label><br>
-      	<img id="photo_url" class="picture col-md-8" src="{{ MEDIA_URL }}{{ form.photo.value }}" height="200" width="200"/>
+      	<img id="photo_url" class="picture col-md-8" src="{{ MEDIA_URL }}{{ form.photo.value }}" />
     {% else %}
-        <img src="#" height="200" width="200"/>    		
+        <img id="photo_url" src="#" height="200" width="200"/>    		
     {% endif %}  
     </div>
     <div class="help-block with-errors"> </div>

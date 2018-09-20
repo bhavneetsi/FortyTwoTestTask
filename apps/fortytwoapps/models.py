@@ -19,6 +19,16 @@ class Contact(models.Model):
     def get_absolute_url(self):
         return reverse('update_contact', kwargs={'pk': self.id})
 
+    def save(self, *args, **kwargs):
+        super(Contact, self).save(*args, **kwargs)
+        size = (200, 200)
+        if self.photo and (self.photo.width != 200
+                           or self.photo.height != 200):
+            filename = self.photo.path
+            image = Image.open(filename)
+            image.thumbnail(size, Image.ANTIALIAS)
+            image.save(filename)
+
 
 class Request(models.Model):
     """Request datamodel

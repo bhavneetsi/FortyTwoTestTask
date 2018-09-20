@@ -121,11 +121,7 @@ class TestUpdateContactView(TestCase):
 
     def test_update_contact_view_render(self):
         """
-        Test to check if view is retrself.assertEqual(response.url,
-                         '/accounts/login/?next=/update_profile_page/1/')
-        ning success status code and rendringself.assertEqual(response.url,
-                         '/accounts/login/?next=/update_profile_page/1/')
-
+        Test to check if view is retrning
         correct template
         """
         self.assertEqual(self.response.status_code,200)
@@ -138,8 +134,7 @@ class TestUpdateContactView(TestCase):
         self.client.logout()
         self.response = self.client.get(self.url)
         self.assertEqual(self.response.status_code,302)
-        self.assertEqual(self.response.url,
-                         'http://testserver/accounts/login/?next=/updatecontact/1/')
+        self.assertIn('/accounts/login/',self.response.url)
 
     def test_for_all_fields_presented_back(self):
         """
@@ -153,6 +148,9 @@ class TestUpdateContactView(TestCase):
             self.assertContains(self.response, field)
    
     def test_ajax_update_request(self):
+        """
+        Test Ajax request is uppdating contact details
+        """
         updatedata={'name':'test',
               'lastname':'user',
               'dateofbirth':'1983-05-01',

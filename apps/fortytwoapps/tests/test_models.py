@@ -52,7 +52,7 @@ class ContactModelTestCase(TestCase):
         """
         required_photo_size = (200,200)
         uploaded_photo_size = Image.open(self.contact.photo.path).size
-        self.assertEqual(required_photo_size,uploaded_photo_size)
+        self.assertLessEqual(uploaded_photo_size,required_photo_size)
 
 
 class RequestsModelTestCase(TestCase):
