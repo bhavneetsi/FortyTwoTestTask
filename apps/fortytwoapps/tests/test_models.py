@@ -4,13 +4,15 @@ from datetime import datetime
 from PIL import Image
 from django.core.files import File
 from django.conf import settings
+import os
+import glob
 
 
 class ContactModelTestCase(TestCase):
 
     def setUp(self):
         Contact.objects.all().delete()
-        imgfile = open("".join([settings.BASE_DIR,"/uploads/photos/img.png"]))
+        imgfile = open("".join([settings.BASE_DIR,"/photos/test_img.png"]))
         self.contact = Contact.objects.create(
             name='test',
             lastname='user',
@@ -20,7 +22,13 @@ class ContactModelTestCase(TestCase):
             jabber='bhavneetsi@42cc.co',
             skype='bhavneet.si',
             othercontacts='Other Contacts',
-            photo=File(imgfile))
+            photo=File(imgfile)
+            )
+
+    def tearDown(self):
+        files = "".join([settings.BASE_DIR,"/uploads/photos/test_img*"])
+        for file in glob.glob(files):
+            os.remove(file)
 
     def test_contact_basic(self):
         """
@@ -36,7 +44,7 @@ class ContactModelTestCase(TestCase):
         self.assertEqual(contact.jabber, 'bhavneetsi@42cc.co')
         self.assertEqual(contact.skype, 'bhavneet.si')
         self.assertEqual(contact.othercontacts, 'Other Contacts')
-        self.assertEqual(self.contact.photo.url,'/uploads/photos/img.jpg')
+        self.assertEqual(self.contact.photo.url,'/uploads/photos/test_img.png')
 
     def test_image_size(self):
         """

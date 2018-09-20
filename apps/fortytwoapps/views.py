@@ -1,5 +1,5 @@
 from .models import Contact, Request
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, UpdateView
 from django.http import HttpResponse
 from json import dumps
 from django.utils.decorators import method_decorator
@@ -46,7 +46,7 @@ class AjaxableResponseMixin(object):
     Must be used with an object-based FormView (e.g. CreateView)
     """
     def render_to_json_response(self, context, **response_kwargs):
-        data = json.dumps(context)
+        data = dumps(context)
         response_kwargs['content_type'] = 'application/json'
         return HttpResponse(data, **response_kwargs)
 

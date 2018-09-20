@@ -146,7 +146,7 @@ class TestUpdateContactView(TestCase):
         Test to check if all fields from model are made available
         to be updated.
         """
-        fields = ('name', 'surname', 'bio', 'email', 'jabber', 'skype',
+        fields = ('name', 'lastname', 'bio', 'email', 'jabber', 'skype',
                   'othercontacts', "dateofbirth", "photo")
 
         for field in fields:
@@ -154,7 +154,7 @@ class TestUpdateContactView(TestCase):
    
     def test_ajax_update_request(self):
         updatedata={'name':'test',
-              'surname':'user',
+              'lastname':'user',
               'dateofbirth':'1983-05-01',
               'email':'testuser@test.com',
               'skype':'test.user',
@@ -165,7 +165,7 @@ class TestUpdateContactView(TestCase):
         contact=Contact.objects.first()
         self.assertEqual(response.status_code,200)
         self.assertEqual(contact.name, updatedata['name'])
-        self.assertEqual(contact.surname, updatedata['surname'])
+        self.assertEqual(contact.lastname, updatedata['lastname'])
         self.assertEqual(contact.dateofbirth.strftime('%Y-%m-%d'), updatedata['dateofbirth'])
         self.assertEqual(contact.email, updatedata['email'])
         self.assertEqual(contact.jabber, updatedata['jabber'])

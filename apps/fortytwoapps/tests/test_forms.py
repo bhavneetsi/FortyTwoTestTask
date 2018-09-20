@@ -7,7 +7,7 @@ class TestUpdateContactForm(TestCase):
 
     def setUp(self):
         self.updatedata = {'name':'test',
-                           'surname':'user',
+                           'lastname':'user',
                            'dateofbirth':'1983-05-01',
                            'email':'testuser@test.com',
                            'skype':'test.user',
@@ -23,7 +23,7 @@ class TestUpdateContactForm(TestCase):
         self.assertTrue(form.is_valid())
         form.save()
 
-        fields = ('name', 'surname', 'bio', 'email', 'jabber', 'skype',
+        fields = ('name', 'lastname', 'bio', 'email', 'jabber', 'skype',
                   'othercontacts')
 
         for field in fields:
@@ -38,6 +38,6 @@ class TestUpdateContactForm(TestCase):
         self.assertFalse(form.is_valid())
         self.assertDictEqual(form.errors,{
                              'dateofbirth': ['This field is required.'],
-                             'surname': ['This field is required.'],
+                             'lastname': ['This field is required.'],
                              'name': ['This field is required.'],
                              })

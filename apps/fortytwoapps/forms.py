@@ -19,9 +19,9 @@ class UpdateContactForm(forms.ModelForm):
     name = forms.CharField(widget=forms.widgets.TextInput(
                            attrs={'class': 'form-control','required': True,
                            'data-required-error': 'Name is required.'}))
-    surname = forms.CharField(widget=forms.widgets.TextInput(
+    lastname = forms.CharField(widget=forms.widgets.TextInput(
                               attrs={'class': 'form-control',
-                              'required': True,'data-required-error': 'SurName is required.'}))
+                              'required': True,'data-required-error': 'LastName is required.'}))
     dateofbirth = forms.DateField(widget=forms.widgets.DateInput
                                   (format='%Y-%m-%d',attrs={'class': 'calendar-widget form-control',
                               'required': True,'data-dateofbirth':"dateofbirth"}),validators=[validate_dob])

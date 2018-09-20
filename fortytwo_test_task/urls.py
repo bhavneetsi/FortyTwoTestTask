@@ -1,7 +1,8 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from fortytwoapps.views import Index, Requests
+from fortytwoapps.views import Index, Requests, UpdateContact
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf import settings
 admin.autodiscover()
 
 urlpatterns = patterns(
