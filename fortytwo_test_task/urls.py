@@ -12,6 +12,11 @@ urlpatterns = patterns(
     url(r'^$', Index.as_view(), name='index'),
     url(r'^requests/', Requests.as_view(), name='requests'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^updatecontact/(?P<pk>\d+)/$',UpdateContact.as_view(),name='update_contact'),
 )
 
 urlpatterns += staticfiles_urlpatterns()
+urlpatterns += patterns('',
+                        url(r'^uploads/(?P<path>.*)$',
+                            'django.views.static.serve',
+                            {'document_root': settings.MEDIA_ROOT}))
