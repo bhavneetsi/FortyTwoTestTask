@@ -2,6 +2,9 @@ from django.test import TestCase
 from fortytwoapps.models import Contact, Request
 from django.core.urlresolvers import reverse
 from json import loads
+from PIL import Image
+from django.core.files import File
+from django.conf import settings
 
 
 class IndexViewTestCase(TestCase):
@@ -107,3 +110,64 @@ class TestRequestView(TestCase):
         self.response = self.client.get('/requests/')
         self.assertEqual(self.response.status_code, 200)
         self.assertTemplateUsed(self.response, 'fortytwoapps/requests.html')
+
+
+class TestUpdateContactView(TestCase):
+
+    def setUp(self):
+        self.url = reverse('update_contact',kwargs={'pk': 1})
+        self.client.login(username='admin', password='admin')
+        self.response = self.client.get(self.url)
+
+    def test_update_contact_view_render(self):
+        """
+        Test to check if view is retrself.assertEqual(response.url,
+                         '/accounts/login/?next=/update_profile_page/1/')
+        ning success status code and rendringself.assertEqual(response.url,
+                         '/accounts/login/?next=/update_profile_page/1/')
+
+        correct template
+        """
+        self.assertEqual(self.response.status_code,200)
+        self.assertTemplateUsed(self.response,'fortytwoapps/update_contact.html')
+    
+    def test_update_contact_view_unauthorised(self):
+        """
+        Test if unauthorised request is redirected to login page 
+        """
+        self.client.logout()
+        self.response = self.client.get(self.url)
+        self.assertEqual(self.response.status_code,302)
+        self.assertEqual(self.response.url,
+                         'http://testserver/accounts/login/?next=/updatecontact/1/')
+
+    def test_for_all_fields_presented_back(self):
+        """
+        Test to check if all fields from model are made available
+        to be updated.
+        """
+        fields = ('name', 'surname', 'bio', 'email', 'jabber', 'skype',
+                  'othercontacts', "dateofbirth", "photo")
+
+        for field in fields:
+            self.assertContains(self.response, field)
+   
+    def test_ajax_update_request(self):
+        updatedata={'name':'test',
+              'surname':'user',
+              'dateofbirth':'1983-05-01',
+              'email':'testuser@test.com',
+              'skype':'test.user',
+              'jabber':'test@42cc.co',
+              'othercontacts':'none',
+              'bio':'no bio'}
+        response=self.client.post(self.url,updatedata,HTTP_X_REQUESTED_WITH = "XMLHttpRequest")
+        contact=Contact.objects.first()
+        self.assertEqual(response.status_code,200)
+        self.assertEqual(contact.name, updatedata['name'])
+        self.assertEqual(contact.surname, updatedata['surname'])
+        self.assertEqual(contact.dateofbirth.strftime('%Y-%m-%d'), updatedata['dateofbirth'])
+        self.assertEqual(contact.email, updatedata['email'])
+        self.assertEqual(contact.jabber, updatedata['jabber'])
+        self.assertEqual(contact.othercontacts,updatedata['othercontacts'])
+        self.assertEqual(contact.bio,updatedata['bio'])
