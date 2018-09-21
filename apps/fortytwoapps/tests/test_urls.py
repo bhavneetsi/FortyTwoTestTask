@@ -21,3 +21,12 @@ class RequestUrlTestCase(TestCase):
 
         req = resolve('/requests/')
         self.assertEqual(req.view_name, 'requests')
+
+
+class EditContactUrlTestCase(TestCase):
+
+    def test_editcontact_url(self):
+        """test for request url"""
+
+        req = resolve('/updatecontact/1/')
+        self.assertEqual(req.view_name, 'update_contact')

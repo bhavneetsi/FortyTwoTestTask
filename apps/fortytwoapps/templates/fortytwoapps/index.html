@@ -27,10 +27,22 @@
 
 	</div>
 </div>
+<div class="row">
+    <div class="col-md-6 text-center">
+     {% if contact.photo %}
+      	<img src="{{ contact.photo.url }}"/>
+    {% else %}
+        <img src="#" height="200" width="200"/>    		
+    {% endif %}  
+    </div>
+    </div>
 </div>
 {%else %}
 <p>Contact details not in db.</p>
 {% endif %}
 <hr>
 <a class="btn" href="{% url 'requests' %}"> Requests </a>
+{% if contact.pk %}
+<a class="btn" href="{% url 'update_contact' contact.pk %}">Edit Contact </a>
+{% endif %}
 {% endblock %}
