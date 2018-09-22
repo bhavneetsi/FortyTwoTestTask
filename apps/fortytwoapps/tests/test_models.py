@@ -1,5 +1,5 @@
 from django.test import TestCase
-from fortytwoapps.models import Contact, Request
+from fortytwoapps.models import Contact, Request, ObjectLog
 from datetime import datetime
 from PIL import Image
 from django.core.files import File
@@ -76,12 +76,13 @@ class RequestsModelTestCase(TestCase):
         self.assertEqual(self.request.method, 'get')
         self.assertEqual(self.request.viewed, False)
 
+
 class ObjectLogModelTestCase(TestCase):
 
         def test_objectlog_fields_in_model(self):
         """Test all fields are present in the model"""
         fields = {field.name: field.get_internal_type() for field in 
-                  Request._meta.fields}
+                  ObjectLog._meta.fields}
         self.assertDictEqual(fields, {
             'id': u'AutoField',
             'appname': u'CharField',
