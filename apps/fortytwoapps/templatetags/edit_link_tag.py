@@ -11,7 +11,11 @@ def edit_link(obj,*args):
     admin edit page"""
     try:
         arguments = args
-        view_name = 'admin:{}_change'.format(obj._meta.db_table)
+        if args:
+            view_name = 'admin:{}_change'.format(obj._meta.db_table)
+        else:
+            view_name = 'admin:{}_changelist'.format(obj._meta.db_table)
+  
         return reverse(view_name, args=arguments)
     except AttributeError:
         raise template.TemplateSyntaxError(
