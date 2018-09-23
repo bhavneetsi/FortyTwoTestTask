@@ -79,9 +79,10 @@ class RequestsModelTestCase(TestCase):
 
 class ObjectLogModelTestCase(TestCase):
 
-        def test_objectlog_fields_in_model(self):
-        """Test all fields are present in the model"""
-        fields = {field.name: field.get_internal_type() for field in 
+    def test_objectlog_fields_in_model(self):
+        """
+        Test all fields are present in the model"""
+        fields = {field.name: field.get_internal_type() for field in
                   ObjectLog._meta.fields}
         self.assertDictEqual(fields, {
             'id': u'AutoField',

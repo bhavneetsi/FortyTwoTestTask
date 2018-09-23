@@ -5,7 +5,8 @@ from django.template import Template, Context, TemplateSyntaxError
 
 
 class TestEditLinkTag(TestCase):
-    TEMPLATE = Template('{% load edit_link_tag %} {% edit_link contact contact.pk %}')
+    TEMPLATE = Template('{% load edit_link_tag %} \
+                        {% edit_link contact contact.pk %}')
 
     def test_link_on_index(self):
         """

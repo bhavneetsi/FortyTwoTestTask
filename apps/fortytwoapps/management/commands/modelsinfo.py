@@ -11,4 +11,3 @@ class Command(BaseCommand):
             msg = '{} - {}'.format(model.__name__, model.objects.count())
             self.stdout.write(msg)
             self.stderr.write('Error: ' + msg)
-
