@@ -28,8 +28,6 @@ function updateRequests(response){
 	var requestList = response.request_list;
 	var template="";
 	var finaltemplate="";
-	//update page only if new requests
-	if (newRequests > 0){
 	requestList.forEach(function(request){
 		template = "<tr><td>"+request.url+"</td><td>"+request.method+"</td><td>"+request.time+"</td></tr>";
 		finaltemplate += template;
@@ -37,7 +35,6 @@ function updateRequests(response){
 
 	$("tbody").html(finaltemplate);
 	updatetitle();
-	}
 }
 
 function updatetitle(){
