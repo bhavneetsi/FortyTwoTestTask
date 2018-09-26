@@ -7,17 +7,15 @@ from .widgets import Text, DateWidget
 
 JABBER_ATTRS = {'pattern': '^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]'
                 '{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$',
-                'data-required-error': 'This field is required.',
                 'data-pattern-error': 'Enter a valid Jabber Id.',
                 'class': 'form-control',
                 'required': False}
 
 EMAIL_ATTRS = {'pattern': '^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]'
                '{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$',
-               'data-required-error': 'This field is required.',
                'data-pattern-error': 'Enter a valid Email Id',
                'class': 'form-control',
-               'required': True}
+               'required': False}
 
 
 def validate_dob(value):
@@ -54,7 +52,7 @@ class UpdateContactForm(forms.ModelForm):
     bio = forms.CharField(widget=forms.widgets.Textarea(
                           attrs={'class': 'form-control'}), required=False)
     email = forms.EmailField(widget=forms.widgets.EmailInput
-                             (attrs=EMAIL_ATTRS), required=True)
+                             (attrs=EMAIL_ATTRS), required=False)
     jabber = forms.CharField(widget=forms.widgets.TextInput
                              (attrs=JABBER_ATTRS), required=False)
     skype = forms.CharField(widget=Text(
