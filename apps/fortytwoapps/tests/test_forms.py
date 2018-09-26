@@ -43,3 +43,10 @@ class TestUpdateContactForm(TestCase):
                              'lastname': ['This field is required.'],
                              'name': ['This field is required.'],
                              })
+
+    def test_date_widget(self):
+        """
+        Test date widget iis loading
+        """
+        form = UpdateContactForm(self.updatedata, instance=self.contact)
+        self.assertIn('js/date_widget.js', form.media.__str__())

@@ -1,4 +1,27 @@
 $(function () {
+
+options = {
+        custom: {
+            dateofbirth: function ($el) {
+                console.debug("inside dob validation" + $el.val());
+                var regEx = /^\d{4}-\d{2}-\d{2}$/;
+                isDate = $el.val().match(regEx);
+                curDate = new Date(new Date().setHours(0, 0, 0, 0));
+                var inputValue = new Date($el.val());
+                var result =  inputValue < curDate && inputValue > new Date(
+                    new Date().setFullYear(curDate.getFullYear() - 200)
+                );
+                if (!isDate) {
+                    return "Date is invalid.Please enter date in format yyyy-mm-dd";
+                }
+                if (!result) {
+                    return "Date is invalid.Please enter date less than today and not older than 200 years";
+                }
+            }
+        }
+    };
+
+
 var	ajaxOptions = {
         target: "#result",
         dataType: "json",
@@ -46,15 +69,18 @@ var	ajaxOptions = {
         custom: {
             dateofbirth: function ($el) {
             	console.debug("inside dob validation" + $el.val());
-                var isDate = !!Date.parse($el.val()),
-                    curDate = new Date(new Date().setHours(0, 0, 0, 0));
+                var regEx = /^\d{4}-\d{2}-\d{2}$/;
+                isDate = $el.val().match(regEx);
+                curDate = new Date(new Date().setHours(0, 0, 0, 0));
                 var inputValue = new Date($el.val());
-                var result =  inputValue > curDate;
+                var result =  inputValue < curDate && inputValue > new Date(
+                    new Date().setFullYear(curDate.getFullYear() - 200)
+                );
                 if (!isDate) {
-                    return "Date is invalid!!.";
+                    return "Date is invalid.Please enter date in format yyyy-mm-dd";
                 }
-                if (result) {
-                    return "Date is invalid!.";
+                if (!result) {
+                    return "Date is invalid.Please enter date less than today and not older than 200 years";
                 }
             }
         }
@@ -63,11 +89,11 @@ var	ajaxOptions = {
 
 $("form").validator(options);
 
-	  $("#id_dateofbirth").datepicker({
+$("#id_dateofbirth").datepicker({
         changeMonth: true,
         changeYear: true,
         dateFormat: "yy-mm-dd",
-        yearRange: "1900:2100"
+        yearRange: "1700:2100"
     });
 
    $("#id_photo").on("change", function (e) {
