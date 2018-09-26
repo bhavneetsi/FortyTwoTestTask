@@ -12,7 +12,9 @@ class ContactModelTestCase(TestCase):
 
     def setUp(self):
         Contact.objects.all().delete()
-        imgfile = open("".join([settings.BASE_DIR, "/photos/test_img.png"]))
+        imgfile = open("".
+                       join([settings.BASE_DIR,
+                            "/apps/fortytwoapps/tests/photos/test_img.png"]))
         self.contact = Contact.objects.create(
             name='test',
             lastname='user',

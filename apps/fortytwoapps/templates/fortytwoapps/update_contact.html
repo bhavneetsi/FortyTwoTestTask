@@ -14,7 +14,7 @@ Update Contact
 	</div>
 
 
-<form id="update_contact" class="form-horizontal my" data-toggle="validator" method="post" enctype="multipart/form-data">
+<form id="update_contact" class="form form-horizontal my" data-toggle="validator" method="post" enctype="multipart/form-data">
  {% csrf_token %}
 
 <div class="form-group">
@@ -36,7 +36,7 @@ Update Contact
 
 		<div class="row">
 		<div class="form-group has-feedback">
-			<label class="control-label col-md-4" for="id_lastname">LastName:</label>
+			<label class="control-label col-md-4" for="id_lastname">Last name:</label>
 			<div class="col-md-8" requir>{{form.lastname}}
 				<div class="help-block with-errors"> </div>
 				<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
@@ -46,7 +46,7 @@ Update Contact
 		
 		<div class="row">
 		<div class="form-group has-feedback">
-			<label class="control-label col-md-4" for="id_dateofbirth">DateOfBirth:</label>
+			<label class="control-label col-md-4" for="id_dateofbirth">Date of birth:</label>
 			<div class="col-md-8">{{form.dateofbirth}}
 			<div class="help-block with-errors"> </div>
 			<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
@@ -99,7 +99,7 @@ Update Contact
 		
 		<div class="row">
 			<div class="form-group has-feedback">
-				<label class="control-label col-md-4" for="id_othercontacts">OtherContacts:</label>
+				<label class="control-label col-md-4" for="id_othercontacts">Other contacts:</label>
 				<div class="col-md-8">{{form.othercontacts}}
 				<div class="help-block with-errors"> </div>
 				<span class="glyphicon form-control-feedback" aria-hidden="true"></span>
@@ -142,4 +142,6 @@ Update Contact
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.js"></script>
 	<script src="http://malsup.github.com/jquery.form.js"></script>
 	<script src="{% static 'js/update_contact.js' %}"></script>
+ 	{{ form.media }}
+
 {% endblock scripts %}    
