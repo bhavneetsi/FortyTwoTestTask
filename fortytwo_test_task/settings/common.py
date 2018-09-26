@@ -31,6 +31,7 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+UID = "SIGNALS_DISPATCH_UID"
 
 # Application definition
 

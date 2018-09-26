@@ -1,9 +1,10 @@
 from django.db.models.signals import post_save, post_delete
 from fortytwoapps.models import ObjectLog
 from django.dispatch import receiver
+from django.conf import settings
 
 
-@receiver(post_save, dispatch_uid="my_unique_identifier")
+@receiver(post_save, dispatch_uid=settings.UID)
 def object_log_post_save(sender, instance, created, raw, **kwargs):
     if raw or sender == ObjectLog:
         return
@@ -14,7 +15,7 @@ def object_log_post_save(sender, instance, created, raw, **kwargs):
                              action=action)
 
 
-@receiver(post_delete, dispatch_uid="my_unique_identifier")
+@receiver(post_delete, dispatch_uid=settings.UID)
 def object_log_post_delete(sender, instance, **kwargs):
     if sender == ObjectLog:
         return
